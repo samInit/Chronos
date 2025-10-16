@@ -1,10 +1,18 @@
+const Task = require('../models/Task')
+
 const getAllTasks = (req,res) =>{
     res.send('get all tasks')
 }
 
-const createTask = (req,res) =>{
+const createTask = async (req,res) =>{
+    try{
+        const task = await Task.create(req.body)
+        res.status(201).json({task})
+    }catch(error){
+        res.status(500).json({msg: error});
+    }
     // res.send('create task')
-    res.json(req.body)//for postman testing
+    // res.json(req.body)//for postman testing
 }
 const getTask = (req,res) =>{
     // res.send('get a task')
